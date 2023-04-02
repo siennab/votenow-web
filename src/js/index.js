@@ -54,7 +54,7 @@ export class VoteNow {
           setTimeout(() =>{
             this.closeGroupButton.classList.remove('hidden');
 
-          }, 30000)
+          }, 20000)
         });
         this.votingService.subscribeToStatusChanges((group) => {
           this.onVoteClose(group)
