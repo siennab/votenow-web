@@ -5,9 +5,7 @@
 	<title>Vote Now</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<style>
-		.hidden {
-			display: none;
-		}
+
 	</style>
 
 <body>
@@ -15,16 +13,15 @@
 	<div class="vote" id="vote">
 		<button id="create-group-button">Start Vote</button>
 		<div id="options">
-			<h2>Select all you'd be happy with</h2>
 
 		</div>
 
 		<form class="hidden" id="add-option">
-			<input id="option" type="text" />
-			<button id="message-btn" type="submit">Add</button>
+			<input id="option" required placeholder= "Add an option..." type="text" />
+			<button id="message-btn" type="submit">&plus;</button>
 		</form>
 
-		<button class="hidden" id="close-group-button">Close Voting</button>
+		<button class="hidden" id="close-group-button">Everyone's In</button>
 
 		<div id="result">
 

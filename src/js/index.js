@@ -44,13 +44,17 @@ export class VoteNow {
       if (groupId) {
 
         this.addOptionForm.classList.remove('hidden');
-        this.closeGroupButton.classList.remove('hidden');
         this.createGroupButton.classList.add('hidden');
 
         this.votingService.getGroup(groupId, (snapshot) => {
           const options = snapshot.val();
           const option = this.buildOption(options);
           this.optionsContainer.appendChild(option);
+
+          setTimeout(() =>{
+            this.closeGroupButton.classList.remove('hidden');
+
+          }, 30000)
         });
         this.votingService.subscribeToStatusChanges((group) => {
           this.onVoteClose(group)
@@ -95,8 +99,6 @@ export class VoteNow {
     .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
 
     document.getElementById('result').append(`The winner is ${winner.option}`);
-
-  
   }
 }
 
