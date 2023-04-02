@@ -1,5 +1,5 @@
 import { VotingService } from './services/voting';
-
+import '../css/main.scss';
 export class VoteNow {
 
   constructor() {
@@ -25,7 +25,9 @@ export class VoteNow {
 
     this.addOptionForm.onsubmit = ((e) => {
       e.preventDefault();
-      this.votingService.addOption(document.getElementById('option').value);
+      const input = document.getElementById('option');
+      this.votingService.addOption(input.value);
+      input.value = '';
     });
 
     this.closeGroupButton.addEventListener('click', (e) => {
@@ -39,9 +41,12 @@ export class VoteNow {
       const urlParams = new URLSearchParams(window.location.search);
       let groupId = urlParams.get('groupId');
 
-
       if (groupId) {
+
+        this.addOptionForm.classList.remove('hidden');
+        this.closeGroupButton.classList.remove('hidden');
         this.createGroupButton.classList.add('hidden');
+
         this.votingService.getGroup(groupId, (snapshot) => {
           const options = snapshot.val();
           const option = this.buildOption(options);

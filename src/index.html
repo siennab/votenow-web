@@ -11,24 +11,23 @@
 	</style>
 
 <body>
-	<h1>Vote Now</h1>
 
-
-	<div id="vote">
-		<button id="create-group-button">Create Voting Group</button>
+	<div class="vote" id="vote">
+		<button id="create-group-button">Start Vote</button>
 		<div id="options">
+			<h2>Select all you'd be happy with</h2>
 
 		</div>
 
-		<form id="add-option">
+		<form class="hidden" id="add-option">
 			<input id="option" type="text" />
 			<button id="message-btn" type="submit">Add</button>
 		</form>
 
-		<button id="close-group-button">Close Voting</button>
+		<button class="hidden" id="close-group-button">Close Voting</button>
 
 		<div id="result">
-			
+
 		</div>
 	</div>
 	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
