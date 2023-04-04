@@ -1,0 +1,40 @@
+input {
+    &[type=text] {
+        padding: 1rem;
+        border: none;
+        background: $dark_secondary;
+        color: $light;
+        outline: none;
+    }
+
+      &[type=checkbox]+label {
+        padding: 1rem;
+        background: $dark_secondary;
+        color: $light;
+        margin:1rem 0;
+        display: block;
+        transition: background 0.2s ease;
+      }
+      
+      &[type=checkbox]:checked+label {
+        background: $accent_pink;
+        color: $dark;
+
+        &:after {
+            content: '\2713';
+            position: absolute;
+            right: 1rem;
+
+        }
+      }
+
+      &.hide {
+        position: absolute;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+}

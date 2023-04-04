@@ -1,32 +1,100 @@
+@import 'variables';
+@import 'button';
+@import 'input';
+@import 'bottom-bar';
+
 body {
-    font-family:Geneva, Tahoma, sans-serif;
+    font-family: Geneva, Tahoma, sans-serif;
     font-size: 16px;
     margin: 0;
     padding: 0;
+    background: $dark;
+    color: $light;
+}
+
+header {
+    padding: 1rem;
+    padding-bottom: 0;
+    text-align: center;
+
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: $dark;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+
+    &.hide {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    h1 {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+        transition: color 1s ease;
+        animation: changeColor 3s ease infinite;
+    }
+}
+
+h1 {
+    font-family: 'Hip Pocket', sans-serif;
+    color: white;
+    font-size: 3rem;
+    margin: 0;
 }
 
 .hidden {
+    opacity: 0;
+    transition: opacity 1s ease;
     display: none;
 }
 
 .vote {
-    max-width: 16rem;
+    max-width: 30rem;
+    padding: 1rem;
     margin: 0 auto;
 
-    label {
-        display: block;
+    #options {
+        div {
+            position: relative;
+        }
+    }
+}
+
+.message {
+    color: #606471;
+    text-align: center;
+}
+
+@keyframes changeColor {
+    0% {
+        color: $accent_purple;
     }
 
-    button:not([type=submit]) {
-        width: 100%;
-        margin-top: 1rem;
+    25% {
+        color: $accent_pink;
     }
 
-    form {
-        margin-top: 1rem;
+    50% {
+        color: $light;
     }
 
-    input[type=text] {
-        font-size: 18px;
+    75% {
+        color: $accent_pink;
+    }
+
+    100% {
+        color: $accent_purple;
     }
 }

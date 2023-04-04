@@ -7,23 +7,42 @@
 	<style>
 
 	</style>
+	<link href="https://fonts.cdnfonts.com/css/hip-pocket" rel="stylesheet">
+                
 
 <body>
-
+	<div class="overlay" id="overlay">
+		<h1>Voty</h1>
+	</div>
+	<header>
+		<h1>Voty</h1>
+	</header>
 	<div class="vote" id="vote">
-		<button id="create-group-button">Start Vote</button>
-		<div id="options">
+		<div data-step-1>
+			<div class="message">Group Decisions. Made Easy.</div>
+			<br />
+			<button class="full" id="create-group-button">Start Vote</button>
 
 		</div>
+		<div class="hidden" data-step-2>
+			<div data-step-2-message class="message">Tap what you're open to</div>
 
-		<form class="hidden" id="add-option">
-			<input id="option" required placeholder= "Add an option..." type="text" />
-			<button id="message-btn" type="submit">&plus;</button>
-		</form>
+			<div id="options">
 
-		<button class="hidden" id="close-group-button">Everyone's In</button>
+			</div>
+	
+			<div class="bottom-bar">
+				<form  id="add-option">
+					<input id="option" required placeholder= "Add an option..." type="text" />
+					<button id="message-btn" type="submit">&plus;</button>
+				</form>
+		
+				<button disabled id="close-group-button">Everyone's In</button>	
+			</div>
+		</div>
 
-		<div id="result">
+
+		<div class="hidden" data-step-3 id="result">
 
 		</div>
 	</div>

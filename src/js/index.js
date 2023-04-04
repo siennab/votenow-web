@@ -4,11 +4,18 @@ export class VoteNow {
 
   constructor() {
     this.votingService = new VotingService();
+    this.step1 = document.querySelector('[data-step-1]');
+    this.step2 = document.querySelector('[data-step-2]');
+    this.step3 = document.querySelector('[data-step-3]');
 
     this.createGroupButton = document.getElementById('create-group-button');
     this.addOptionForm = document.getElementById('add-option');
     this.closeGroupButton = document.getElementById('close-group-button');
     this.optionsContainer = document.getElementById('options');
+
+    this.overlay = document.getElementById('overlay');
+
+    this.options = [];
     this.init();
   }
 
@@ -43,16 +50,18 @@ export class VoteNow {
 
       if (groupId) {
 
-        this.addOptionForm.classList.remove('hidden');
-        this.createGroupButton.classList.add('hidden');
+        this.step2.classList.remove('hidden');
+        this.step1.classList.add('hidden');
 
         this.votingService.getGroup(groupId, (snapshot) => {
           const options = snapshot.val();
+
+          this.options.push(options);
           const option = this.buildOption(options);
           this.optionsContainer.appendChild(option);
 
           setTimeout(() =>{
-            this.closeGroupButton.classList.remove('hidden');
+            this.closeGroupButton.disabled = false;
 
           }, 20000)
         });
@@ -60,7 +69,10 @@ export class VoteNow {
           this.onVoteClose(group)
         });
       }
-    })
+    });
+    setTimeout(() => {
+      this.overlay.classList.add('hide');
+    }, 1000);
   }
 
   buildOption(options) {
@@ -69,13 +81,17 @@ export class VoteNow {
     optionInput.type = 'checkbox';
     optionInput.checked = votes.includes(options.id);
     optionInput.id = options.id;
+    optionInput.classList.add('hide');
     optionInput.onchange = (e) => { this.handleVote(e) };
 
     const label = document.createElement('label');
-    label.appendChild(optionInput);
     label.append(options.option);
 
-    return label;
+    const div = document.createElement('div');
+    div.appendChild(optionInput);
+    div.appendChild(label);
+
+    return div;
   }
 
   handleVote(event) {
@@ -90,11 +106,11 @@ export class VoteNow {
   }
 
   onVoteClose(group) {
-    this.optionsContainer.classList.add('hidden');
-    this.createGroupButton.classList.add('hidden');
-    this.addOptionForm.classList.add('hidden');
-    this.closeGroupButton.classList.add('hidden');
+    this.step2.classList.add('hidden');
+    this.step3.classList.remove('hidden');
 
+    // to do: tie break with random number generation 
+    // sucks to know the last tie will always win
     const winner = Object.values(group.options)
     .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
 

@@ -1,0 +1,25 @@
+@import 'variables';
+button {
+    border: none;
+    padding: 1rem;
+    color: $dark;
+    background: $accent_purple;
+    transition: background 0.25s ease;
+    font-size: 16px;
+    font-weight: light;
+
+    &.full {
+        width: 100%;
+    }
+
+    &:hover,
+    &:active {
+        background: $accent_pink;
+    }
+
+    &[type=submit] {
+        background: transparent;
+        color: $accent_pink;
+        font-size: 24px;
+    }
+}
