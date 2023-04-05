@@ -12,6 +12,7 @@ export class VoteNow {
     this.addOptionForm = document.getElementById('add-option');
     this.closeGroupButton = document.getElementById('close-group-button');
     this.optionsContainer = document.getElementById('options');
+    this.shareButton = document.getElementById('share-button');
 
     this.overlay = document.getElementById('overlay');
 
@@ -41,6 +42,10 @@ export class VoteNow {
       this.votingService.closeVote();
     });
 
+    this.shareButton.addEventListener('click', (e) => {
+      this.share();
+    });
+
   }
 
   onWindowLoad() {
@@ -60,8 +65,8 @@ export class VoteNow {
           const option = this.buildOption(options);
           this.optionsContainer.appendChild(option);
 
-          setTimeout(() =>{
-            this.closeGroupButton.disabled = false;
+          setTimeout(() => {
+            this.closeGroupButton.classList.remove('hidden');
 
           }, 20000)
         });
@@ -112,9 +117,27 @@ export class VoteNow {
     // to do: tie break with random number generation 
     // sucks to know the last tie will always win
     const winner = Object.values(group.options)
-    .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
+      .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
 
-    document.getElementById('result').append(`The winner is ${winner.option}`);
+    const h2 = document.createElement('h2');
+    h2.classList.add('slide-up');
+    h2.innerText = winner.option;
+
+    document.getElementById('result').appendChild(h2);
+  }
+
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Add your vote!',
+        url: window.location.href
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+        .catch(console.error);
+    } else {
+      // fallback
+    }
   }
 }
 

@@ -5,6 +5,10 @@ input {
         background: $dark_secondary;
         color: $light;
         outline: none;
+        -webkit-appearance: none;
+        font-size: 16px;
+        font-family: Geneva, Tahoma, sans-serif;
+
     }
 
       &[type=checkbox]+label {

@@ -1,0 +1,1 @@
+button{border:none;padding:1rem;color:#1f1d26;background:#b4acfc;transition:background 0.25s ease;font-size:16px;font-weight:light}button:disabled{opacity:0.5}button.full{width:100%}button:hover,button:active{background:#cea0cc}button[type=submit]{background:transparent;color:#cea0cc;font-size:24px}

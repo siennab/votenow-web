@@ -6,6 +6,11 @@ button {
   transition: background 0.25s ease;
   font-size: 16px;
   font-weight: light;
+  font-family: Geneva, Tahoma, sans-serif;
+}
+
+button:disabled {
+  opacity: 0.5;
 }
 
 button.full {
@@ -16,9 +21,20 @@ button:hover, button:active {
   background: #cea0cc;
 }
 
+button.accent-box {
+  font-family: 'Hip Pocket', sans-serif;
+  color: #1f1d26;
+}
+
+button.inline {
+  background: transparent;
+  color: #b4acfc;
+  width: 100%;
+}
+
 button[type=submit] {
   background: transparent;
-  color: #cea0cc;
+  color: #b4acfc;
   font-size: 24px;
 }
 
@@ -28,6 +44,9 @@ input[type=text] {
   background: #272c39;
   color: #ffffff;
   outline: none;
+  -webkit-appearance: none;
+  font-size: 16px;
+  font-family: Geneva, Tahoma, sans-serif;
 }
 
 input[type=checkbox] + label {
@@ -90,6 +109,10 @@ body {
   color: #ffffff;
 }
 
+a {
+  text-decoration: none;
+}
+
 header {
   padding: 1rem;
   padding-bottom: 0;
@@ -124,11 +147,15 @@ header {
   animation: changeColor 3s ease infinite;
 }
 
-h1 {
+h1, h2 {
   font-family: 'Hip Pocket', sans-serif;
   color: white;
   font-size: 3rem;
   margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 .hidden {
@@ -147,9 +174,36 @@ h1 {
   position: relative;
 }
 
+.options-container {
+  margin-bottom: 4rem;
+}
+
 .message {
   color: #606471;
   text-align: center;
+}
+
+#result h2 {
+  color: #1f1d26;
+}
+
+.accent-box {
+  text-align: center;
+  position: fixed;
+  background: #272c39;
+  padding: 3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: changeBackground 3s ease infinite;
+  max-width: 16rem;
+  width: 100%;
+}
+
+.accent-box button {
+  font-family: 'Hip Pocket', sans-serif;
+  color: #1f1d26;
+  background: transparent;
 }
 
 @keyframes changeColor {
@@ -167,5 +221,17 @@ h1 {
   }
   100% {
     color: #b4acfc;
+  }
+}
+
+@keyframes changeBackground {
+  0% {
+    background: #b4acfc;
+  }
+  50% {
+    background: #cea0cc;
+  }
+  100% {
+    background: #b4acfc;
   }
 }

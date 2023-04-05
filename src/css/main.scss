@@ -12,6 +12,10 @@ body {
     color: $light;
 }
 
+a {
+    text-decoration: none;
+}
+
 header {
     padding: 1rem;
     padding-bottom: 0;
@@ -47,11 +51,16 @@ header {
     }
 }
 
-h1 {
+h1, h2 {
     font-family: 'Hip Pocket', sans-serif;
     color: white;
     font-size: 3rem;
     margin: 0;
+
+}
+
+h2 {
+    font-size: 2rem;
 }
 
 .hidden {
@@ -72,9 +81,40 @@ h1 {
     }
 }
 
+.options-container {
+    margin-bottom: 4rem;
+}
+
 .message {
-    color: #606471;
+    color: $message;
     text-align: center;
+}
+
+#result {
+ 
+
+    h2 {
+        color: $dark;
+    }
+}
+
+.accent-box {
+    text-align: center;
+    position: fixed;
+    background: $dark_secondary;
+    padding: 3rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: changeBackground 3s ease infinite;
+    max-width: 16rem;
+    width: 100%;
+
+    button {
+        font-family: 'Hip Pocket', sans-serif;
+        color: $dark;
+        background: transparent;
+    }
 }
 
 @keyframes changeColor {
@@ -96,5 +136,19 @@ h1 {
 
     100% {
         color: $accent_purple;
+    }
+}
+
+@keyframes changeBackground {
+    0% {
+        background: $accent_purple;
+    }
+
+    50% {
+        background: $accent_pink;
+    }
+
+    100% {
+        background: $accent_purple;
     }
 }

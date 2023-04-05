@@ -1,4 +1,3 @@
-@import 'variables';
 button {
     border: none;
     padding: 1rem;
@@ -7,6 +6,11 @@ button {
     transition: background 0.25s ease;
     font-size: 16px;
     font-weight: light;
+    font-family: Geneva, Tahoma, sans-serif;
+
+    &:disabled {
+        opacity: 0.5;
+    }
 
     &.full {
         width: 100%;
@@ -17,9 +21,20 @@ button {
         background: $accent_pink;
     }
 
+    &.accent-box {
+        font-family: 'Hip Pocket', sans-serif;
+        color: $dark;
+    }
+
+    &.inline {
+        background: transparent;
+        color: $accent_purple;
+        width: 100%;
+    }
+
     &[type=submit] {
         background: transparent;
-        color: $accent_pink;
+        color: $accent_purple;
         font-size: 24px;
     }
 }
