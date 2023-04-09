@@ -5,18 +5,8 @@
     width: 100%;
     left: 0;
 
-    form {
-        width: 100%;
-        display: flex;
-        background: $dark_secondary;
-
-        input[type=text] {
-            width: 100%;
-        }
-    }
-
-    button:not([type=submit]) {
-        width:13rem;
+    button {
+        width:100%
     }
 
 }

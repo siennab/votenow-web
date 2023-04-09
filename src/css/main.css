@@ -4,8 +4,7 @@ button {
   color: #1f1d26;
   background: #b4acfc;
   transition: background 0.25s ease;
-  font-size: 16px;
-  font-weight: light;
+  font-size: 15px;
   font-family: Geneva, Tahoma, sans-serif;
 }
 
@@ -27,15 +26,19 @@ button.accent-box {
 }
 
 button.inline {
-  background: transparent;
+  background: #272c39;
   color: #b4acfc;
   width: 100%;
 }
 
-button[type=submit] {
+button.inline.transparent {
   background: transparent;
-  color: #b4acfc;
-  font-size: 24px;
+}
+
+button.inline.right {
+  width: 100%;
+  text-align: right;
+  padding-right: 0;
 }
 
 input[type=text] {
@@ -86,18 +89,8 @@ input.hide {
   left: 0;
 }
 
-.bottom-bar form {
+.bottom-bar button {
   width: 100%;
-  display: flex;
-  background: #272c39;
-}
-
-.bottom-bar form input[type=text] {
-  width: 100%;
-}
-
-.bottom-bar button:not([type=submit]) {
-  width: 13rem;
 }
 
 body {
@@ -147,7 +140,8 @@ header {
   animation: changeColor 3s ease infinite;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: 'Hip Pocket', sans-serif;
   color: white;
   font-size: 3rem;
@@ -161,6 +155,7 @@ h2 {
 .hidden {
   opacity: 0;
   transition: opacity 1s ease;
+  height: 0;
   display: none;
 }
 
@@ -176,6 +171,7 @@ h2 {
 
 .options-container {
   margin-bottom: 4rem;
+  margin-top: 1rem;
 }
 
 .message {
@@ -183,8 +179,28 @@ h2 {
   text-align: center;
 }
 
+.message.left {
+  text-align: left;
+}
+
 #result h2 {
   color: #1f1d26;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  background: #272c39;
+}
+
+form input[type=text] {
+  width: 100%;
+}
+
+form input[type=submit] {
+  background: #cea0cc !important;
+  color: #1f1d26;
+  font-size: 24px;
 }
 
 .accent-box {

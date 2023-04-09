@@ -26,10 +26,21 @@
 		<div class="hidden" data-step-2>
 			<div data-step-2-message class="message"><span>Tap</span> what you're open to</div>
 			<div class="options-container">
+
 				<div id="options">
 
 				</div>
-				<button class="inline hidden" id="close-group-button">Everyone's In <img alt="next" width="10" src="img/icons/arrow-right-solid.svg" /></button>	
+				<form  id="add-option">
+					<input type="text"  id="option" required placeholder= "Add what you're open to..." />
+					<button id="message-btn" type="submit">&plus;</button>
+				</form>
+				<button id="done-button" class="inline transparent right hidden">
+					I'm done voting
+				</button>
+				<div id="done-message" class="message left hidden">
+					<p>All done voting? Sit back, relax and wait for your group to finish up. 
+					<p>Close this tab if you'd like. Rest assured, your votes are in.
+				</div>
 	
 			</div>
 
@@ -37,10 +48,8 @@
 			<div class="bottom-bar">
 				<button id="share-button"> <img width="18" alt="share" src="img/icons/arrow-up-from-bracket-solid.svg" /></button>
 
-				<form  id="add-option">
-					<input type="text"  id="option" required placeholder= "Add an option..." />
-					<button id="message-btn" type="submit">&plus;</button>
-				</form>
+				<button class="inline" disabled id="close-group-button">Everyone's In <img alt="next" width="10" src="img/icons/arrow-right-solid.svg" /></button>	
+
 		
 			</div>
 		</div>

@@ -13,6 +13,8 @@ export class VoteNow {
     this.closeGroupButton = document.getElementById('close-group-button');
     this.optionsContainer = document.getElementById('options');
     this.shareButton = document.getElementById('share-button');
+    this.doneButton = document.getElementById('done-button');
+    this.doneVoting = false;
 
     this.overlay = document.getElementById('overlay');
 
@@ -46,6 +48,13 @@ export class VoteNow {
       this.share();
     });
 
+    let self = this;
+    this.doneButton.addEventListener('click', (e) => {
+      self.doneVoting = true;
+      self.doneButton.classList.add('hidden');
+      document.getElementById('done-message').classList.remove('hidden');
+    })
+
   }
 
   onWindowLoad() {
@@ -66,11 +75,12 @@ export class VoteNow {
           this.optionsContainer.appendChild(option);
 
           setTimeout(() => {
-            this.closeGroupButton.classList.remove('hidden');
+            this.closeGroupButton.removeAttribute('disabled');
 
           }, 20000)
         });
         this.votingService.subscribeToStatusChanges((group) => {
+          console.log(group);
           this.onVoteClose(group)
         });
       }
@@ -84,7 +94,7 @@ export class VoteNow {
     const votes = this.votingService.getVotes();
     const optionInput = document.createElement('input');
     optionInput.type = 'checkbox';
-    optionInput.checked = votes.includes(options.id);
+    optionInput.checked = votes.includes(options.id.toString());
     optionInput.id = options.id;
     optionInput.classList.add('hide');
     optionInput.onchange = (e) => { this.handleVote(e) };
@@ -104,6 +114,9 @@ export class VoteNow {
     const optionId = event.target.id;
 
     if (checked) {
+      if(!this.doneVoting) {
+        this.doneButton.classList.remove('hidden');
+      }
       this.votingService.checkOption(optionId);
     } else {
       this.votingService.uncheckOption(optionId);

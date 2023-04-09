@@ -7,7 +7,7 @@ module.exports = {
   entry: ['./src/js/index.js'],
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../votenowpages'),
     publicPath: '/',
   },
   module: {
@@ -26,6 +26,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      minify: {
+        collapseWhitespace: true,
+        keepClosingSlash: true,
+        removeComments: true,
+        removeRedundantAttributes: false,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      }
     }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
@@ -45,3 +54,6 @@ module.exports = {
     historyApiFallback: true,
   },
 };
+
+
+//~/Users/siennabast/Documents/GitHub/votenowpages

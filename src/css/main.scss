@@ -51,7 +51,8 @@ header {
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: 'Hip Pocket', sans-serif;
     color: white;
     font-size: 3rem;
@@ -66,6 +67,7 @@ h2 {
 .hidden {
     opacity: 0;
     transition: opacity 1s ease;
+    height: 0;
     display: none;
 }
 
@@ -83,18 +85,39 @@ h2 {
 
 .options-container {
     margin-bottom: 4rem;
+    margin-top: 1rem
 }
 
 .message {
     color: $message;
     text-align: center;
+
+    &.left {
+        text-align: left;
+    }
 }
 
 #result {
- 
+
 
     h2 {
         color: $dark;
+    }
+}
+
+form {
+    width: 100%;
+    display: flex;
+    background: $dark_secondary;
+
+    input[type=text] {
+        width: 100%;
+    }
+
+    input[type=submit] {
+        background: $accent_pink !important;
+        color: $dark;
+        font-size: 24px;
     }
 }
 

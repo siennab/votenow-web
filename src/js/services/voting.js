@@ -1,12 +1,14 @@
 import { firebaseConfig } from "../config/firebase";
 export class VotingService {
-
+    
     constructor() {
         this.timestamp = Date.now();
         this.groupId = this.timestamp;
         firebase.initializeApp(firebaseConfig);
         this.db = firebase.database();
         this.affirmitiveVotes = [];
+        this.localStorageKey = 'affirmitive';
+
     }
 
     createGroup() {
@@ -37,7 +39,9 @@ export class VotingService {
     }
 
     checkOption(optionId) {
-        this.affirmitiveVotes.push(optionId);
+        let votes = JSON.parse(localStorage.getItem('affirmitive')) ?? [];
+        votes.push(optionId);
+        localStorage.setItem('affirmitive', JSON.stringify(votes));
         const db_id = `votegroup/${this.groupId}/options/${optionId}`;
         this.db.ref(db_id).once("value", (snapshot) => {
             const option = snapshot.val();
@@ -68,7 +72,7 @@ export class VotingService {
     }
 
     getVotes() {
-        return this.affirmitiveVotes;
+        return JSON.parse(localStorage.getItem('affirmitive')) ?? [];
     }
 
     subscribeToStatusChanges(callback) {
