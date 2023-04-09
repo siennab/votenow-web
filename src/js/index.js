@@ -133,7 +133,8 @@ export class VoteNow {
 
     // to do: tie break with random number generation 
     // sucks to know the last tie will always win
-    const winner = Object.values(group.options)
+    const shuffled = this._shuffle(Object.values(group.options));
+    const winner = shuffled
       .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
 
     const h2 = document.createElement('h2');
@@ -156,6 +157,16 @@ export class VoteNow {
       // fallback
     }
   }
+
+  // Function to shuffle an array using Fisher-Yates algorithm
+  _shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 }
 
 window.voteNow = new VoteNow();
