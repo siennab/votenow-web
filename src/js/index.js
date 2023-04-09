@@ -73,15 +73,19 @@ export class VoteNow {
           this.options.push(options);
           const option = this.buildOption(options);
           this.optionsContainer.appendChild(option);
-
-          setTimeout(() => {
-            this.closeGroupButton.removeAttribute('disabled');
-
-          }, 20000)
         });
         this.votingService.subscribeToStatusChanges((group) => {
-          console.log(group);
-          this.onVoteClose(group)
+          const hasVotes = Object.values(group?.options ?? []).some(option => option.votes > 0);
+          if(hasVotes) {
+            this.closeGroupButton.removeAttribute('disabled');
+          } else {
+            this.closeGroupButton.setAttribute('disabled', true);
+          }
+
+          if(group && group.status && group.status == 'closed') {
+            this.onVoteClose(group)
+          }
+
         });
       }
     });

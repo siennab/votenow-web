@@ -123,19 +123,24 @@ form {
 
 .accent-box {
     text-align: center;
-    position: fixed;
+    //position: fixed;
+    margin: 1rem auto 3rem auto;
     background: $dark_secondary;
-    padding: 3rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 4rem;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
     animation: changeBackground 3s ease infinite;
-    max-width: 16rem;
     width: 100%;
+
+    &--block {
+        width: auto;
+    }
 
     button {
         font-family: 'Hip Pocket', sans-serif;
         color: $dark;
+        font-size: 20px;
         background: transparent;
     }
 }

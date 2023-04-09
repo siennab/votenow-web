@@ -1,6 +1,6 @@
 import { firebaseConfig } from "../config/firebase";
 export class VotingService {
-    
+
     constructor() {
         this.timestamp = Date.now();
         this.groupId = this.timestamp;
@@ -42,6 +42,7 @@ export class VotingService {
         let votes = JSON.parse(localStorage.getItem('affirmitive')) ?? [];
         votes.push(optionId);
         localStorage.setItem('affirmitive', JSON.stringify(votes));
+
         const db_id = `votegroup/${this.groupId}/options/${optionId}`;
         this.db.ref(db_id).once("value", (snapshot) => {
             const option = snapshot.val();
@@ -52,6 +53,10 @@ export class VotingService {
     }
 
     uncheckOption(optionId) {
+        let votes = JSON.parse(localStorage.getItem('affirmitive')) ?? [];
+        votes = votes.filter(item => item !== optionId.toString());
+        localStorage.setItem('affirmitive', JSON.stringify(votes));
+
         const db_id = `votegroup/${this.groupId}/options/${optionId}`;
         this.db.ref(db_id).once("value", (snapshot) => {
             const option = snapshot.val();
@@ -71,6 +76,7 @@ export class VotingService {
         });
     }
 
+
     getVotes() {
         return JSON.parse(localStorage.getItem('affirmitive')) ?? [];
     }
@@ -78,10 +84,9 @@ export class VotingService {
     subscribeToStatusChanges(callback) {
         this.db.ref(`votegroup/${this.groupId}`).on('value', (snapshot) => {
             const group = snapshot.val();
-            if(group && group.status && group.status == 'closed') {
-                callback(group);
-            }
-            
+            callback(group);
+
+
         });
     }
 }

@@ -23,6 +23,7 @@ button:hover, button:active {
 button.accent-box {
   font-family: 'Hip Pocket', sans-serif;
   color: #1f1d26;
+  font-size: 18px;
 }
 
 button.inline {
@@ -205,20 +206,21 @@ form input[type=submit] {
 
 .accent-box {
   text-align: center;
-  position: fixed;
+  margin: 1rem auto 3rem auto;
   background: #272c39;
-  padding: 3rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 4rem;
   animation: changeBackground 3s ease infinite;
-  max-width: 16rem;
   width: 100%;
+}
+
+.accent-box--block {
+  width: auto;
 }
 
 .accent-box button {
   font-family: 'Hip Pocket', sans-serif;
   color: #1f1d26;
+  font-size: 20px;
   background: transparent;
 }
 
