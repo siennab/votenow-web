@@ -14,6 +14,11 @@ body {
 
 a {
     text-decoration: none;
+    color: $accent_purple;
+    &:active,
+    &:hover {
+        color: $accent_pink;
+    }
 }
 
 header {
@@ -88,6 +93,7 @@ h2 {
     margin-top: 1rem
 }
 
+
 .message {
     color: $message;
     text-align: center;
@@ -119,6 +125,14 @@ form {
         color: $dark;
         font-size: 24px;
     }
+}
+
+.spacer {
+    margin-top: 1rem;
+}
+
+.right {
+    text-align: right;
 }
 
 .accent-box {

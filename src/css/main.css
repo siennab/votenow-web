@@ -105,6 +105,11 @@ body {
 
 a {
   text-decoration: none;
+  color: #b4acfc;
+}
+
+a:active, a:hover {
+  color: #cea0cc;
 }
 
 header {
@@ -202,6 +207,14 @@ form input[type=submit] {
   background: #cea0cc !important;
   color: #1f1d26;
   font-size: 24px;
+}
+
+.spacer {
+  margin-top: 1rem;
+}
+
+.right {
+  text-align: right;
 }
 
 .accent-box {

@@ -13,7 +13,10 @@ export class VoteNow {
     this.closeGroupButton = document.getElementById('close-group-button');
     this.optionsContainer = document.getElementById('options');
     this.shareButton = document.getElementById('share-button');
-    this.doneButton = document.getElementById('done-button');
+    this.doneAction = document.getElementById('done-action');
+    this.addedAction = document.getElementById('added-action');
+    this.totalIn = document.getElementById('total-in');
+
     this.doneVoting = false;
 
     this.overlay = document.getElementById('overlay');
@@ -38,6 +41,9 @@ export class VoteNow {
       const input = document.getElementById('option');
       this.votingService.addOption(input.value);
       input.value = '';
+      this.addedAction.classList.remove('hidden');
+      this.doneAction.classList.add('hidden');
+
     });
 
     this.closeGroupButton.addEventListener('click', (e) => {
@@ -48,12 +54,17 @@ export class VoteNow {
       this.share();
     });
 
-    let self = this;
-    this.doneButton.addEventListener('click', (e) => {
-      self.doneVoting = true;
-      self.doneButton.classList.add('hidden');
+    const self = this;
+    this.doneAction.addEventListener('click', (e) => {
+      self.doneAction.classList.add('hidden');
+      self.votingService.incrementTotalIn();
       document.getElementById('done-message').classList.remove('hidden');
-    })
+    });
+
+    this.addedAction.querySelector('a').addEventListener('click', (e) => {
+      this.shareAdded();
+    });
+
 
   }
 
@@ -76,6 +87,8 @@ export class VoteNow {
         });
         this.votingService.subscribeToStatusChanges((group) => {
           const hasVotes = Object.values(group?.options ?? []).some(option => option.votes > 0);
+          this.totalIn.innerText = group?.totalIn;
+          
           if(hasVotes) {
             this.closeGroupButton.removeAttribute('disabled');
           } else {
@@ -118,9 +131,8 @@ export class VoteNow {
     const optionId = event.target.id;
 
     if (checked) {
-      if(!this.doneVoting) {
-        this.doneButton.classList.remove('hidden');
-      }
+      this.addedAction.classList.add('hidden');
+      this.doneAction.classList.remove('hidden');
       this.votingService.checkOption(optionId);
     } else {
       this.votingService.uncheckOption(optionId);
@@ -148,6 +160,21 @@ export class VoteNow {
     if (navigator.share) {
       navigator.share({
         title: 'Add your vote!',
+        url: window.location.href
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+        .catch(console.error);
+    } else {
+      // fallback
+    }
+  }
+
+  shareAdded() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'New Options',
+        text: 'I added options to our Voty!',
         url: window.location.href
       }).then(() => {
         console.log('Thanks for sharing!');
