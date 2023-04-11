@@ -32,14 +32,16 @@ export class VotingService {
     }
 
     incrementTotalIn() {
-        localStorage.setItem(`done-${this.groupId}`, true);
-        const db_id = `votegroup/${this.groupId}`;
-        this.db.ref(db_id).once("value", (snapshot) => {
-            const option = snapshot.val();
-            this.db.ref(db_id).update({
-                totalIn: option.totalIn += 1
+        if(!localStorage.getItem(`done-${this.groupId}`)) {
+            localStorage.setItem(`done-${this.groupId}`, true);
+            const db_id = `votegroup/${this.groupId}`;
+            this.db.ref(db_id).once("value", (snapshot) => {
+                const option = snapshot.val();
+                this.db.ref(db_id).update({
+                    totalIn: option.totalIn += 1
+                });
             });
-        });
+        }
     }
 
     addOption(option) {
