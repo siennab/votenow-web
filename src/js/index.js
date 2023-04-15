@@ -13,16 +13,17 @@ export class VoteNow {
     this.closeGroupButton = document.getElementById('close-group-button');
     this.optionsContainer = document.getElementById('options');
     this.shareButton = document.getElementById('share-button');
+    this.shareButtonResults = document.getElementById('share-button-results');
+
     this.doneAction = document.getElementById('done-action');
     this.doneMessage = document.getElementById('done-message');
     this.addedAction = document.getElementById('added-action');
     this.totalIn = document.getElementById('total-in');
 
-    this.doneVoting = false;
-
     this.overlay = document.getElementById('overlay');
 
     this.options = [];
+
     this.init();
   }
 
@@ -53,17 +54,19 @@ export class VoteNow {
       this.share();
     });
 
-    const self = this;
-    this.doneAction.addEventListener('click', (e) => {
-      self.doneAction.classList.add('hidden');
-      self.votingService.incrementTotalIn();
-      this.doneMessage.classList.remove('hidden');
+    this.shareButtonResults.addEventListener('click', (e) => {
+      this.share("The winner is...");
     });
 
     this.addedAction.querySelector('a').addEventListener('click', (e) => {
       this.share('I added options to our voty!');
     });
 
+    this.doneAction.addEventListener('click', (e) => {
+      this.doneAction.classList.add('hidden');
+      this.votingService.incrementTotalIn();
+      this.doneMessage.classList.remove('hidden');
+    });
 
   }
 
@@ -142,17 +145,12 @@ export class VoteNow {
     this.step2.classList.add('hidden');
     this.step3.classList.remove('hidden');
 
-    // to do: tie break with random number generation 
-    // sucks to know the last tie will always win
-    const shuffled = this._shuffle(Object.values(group.options));
-    const winner = shuffled
-      .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
-
+    const winner = group.winner;
     const h2 = document.createElement('h2');
     h2.classList.add('slide-up');
     h2.innerText = winner.option;
 
-    document.getElementById('result').appendChild(h2);
+    document.getElementById('result-accent').appendChild(h2);
   }
 
   share(message = 'Give your input!') {
@@ -164,23 +162,13 @@ export class VoteNow {
       }).then(() => {
         console.log('Thanks for sharing!');
       })
-        .catch(console.error);
+      .catch(console.error);
     } else {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('The link to this Voty has been copied to your clipboard. To share, simply send it to your group.')
+        alert('The link to this Voty has been copied to your clipboard. To share what you\'re seeing, simply paste it to your group.')
       });
     }
   }
-
-  // Function to shuffle an array using Fisher-Yates algorithm
-  _shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
 }
 
 window.voteNow = new VoteNow();

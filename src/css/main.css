@@ -88,6 +88,9 @@ input.hide {
   bottom: 0;
   width: 100%;
   left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 32rem;
 }
 
 .bottom-bar button {
@@ -228,11 +231,13 @@ form input[type=submit] {
   background: #272c39;
   padding: 4rem;
   animation: changeBackground 3s ease infinite;
-  width: 100%;
+  max-width: 18rem;
 }
 
 .accent-box--block {
   width: auto;
+  width: 100%;
+  max-width: inherit;
 }
 
 .accent-box button {

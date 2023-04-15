@@ -22,7 +22,7 @@
 	</header>
 	<div class="vote" id="vote">
 		<div data-step-1>
-			<button class="accent-box" id="create-group-button">Start Vote</button>
+			<button class="accent-box accent-box--block" id="create-group-button">Start Vote</button>
 
 			<h2 class="message left">WHY VOTY?</h2>
 			<p class="message left">Voty is designed to reduce confilict.</p>
@@ -50,7 +50,7 @@
 				</form>
 
 
-				<button class="inline right transparent" id="done-action">
+				<button class="inline right transparent hidden" id="done-action">
 					I'm done voting
 				</button>
 
@@ -73,9 +73,16 @@
 		</div>
 
 
-		<div class="hidden accent-box accent-box--block" data-step-3 id="result">
-			<div class="message">The winner is...</div><br />
-		</div>
+		<section class="hidden" data-step-3 id="result">
+			<div class="accent-box" id="result-accent">
+				<div class="message">The winner is...</div>
+			</div>
+
+			<div class="bottom-bar">
+				<button id="share-button-results"> <img width="18" alt="share" src="img/icons/arrow-up-from-bracket-solid.svg" /></button>
+		
+			</div>
+		</section>
 	</div>
 	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>

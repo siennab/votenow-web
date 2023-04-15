@@ -25,7 +25,7 @@ export class VotingService {
 
 
     closeVote() {
-        const status = 'closed';
+        const status = 'closing';
         this.db.ref("votegroup/" + this.groupId).update({
             status,
         });
@@ -104,9 +104,29 @@ export class VotingService {
     subscribeToStatusChanges(callback) {
         this.db.ref(`votegroup/${this.groupId}`).on('value', (snapshot) => {
             const group = snapshot.val();
-            callback(group);
+            
+            if(group && group.status && group.status == 'closing') {
+                const shuffled = this._shuffle(Object.values(group.options));
+                const winner = shuffled
+                .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
 
+                this.db.ref("votegroup/" + this.groupId).update({
+                    status: 'closed',
+                    winner: winner,
+                });
+            }
+            callback(group);
 
         });
     }
+
+      // Function to shuffle an array using Fisher-Yates algorithm
+    _shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
 }

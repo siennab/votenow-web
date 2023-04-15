@@ -150,10 +150,12 @@ form {
     //left: 50%;
     //transform: translate(-50%, -50%);
     animation: changeBackground 3s ease infinite;
-    width: 100%;
+    max-width: 18rem;
 
     &--block {
         width: auto;
+        width: 100%;
+        max-width: inherit;
     }
 
     button {
