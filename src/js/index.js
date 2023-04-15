@@ -77,6 +77,10 @@ export class VoteNow {
 
       if (groupId) {
 
+        if( localStorage.getItem(`done-${groupId}`) ) {
+          this.doneMessage.classList.remove('hidden');
+        }
+
         this.step2.classList.remove('hidden');
         this.step1.classList.add('hidden');
 
