@@ -211,6 +211,11 @@ form input[type=submit] {
 
 .spacer {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.spacer-bottom {
+  margin-bottom: 1rem;
 }
 
 .right {

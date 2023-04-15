@@ -3,6 +3,7 @@ export class VotingService {
 
     constructor() {
         this.timestamp = Date.now();
+        console.log(MediaDeviceInfo.deviceId);
         this.groupId = this.timestamp;
         firebase.initializeApp(firebaseConfig);
         this.db = firebase.database();
@@ -14,12 +15,11 @@ export class VotingService {
     createGroup() {
         const status = 'active';
         localStorage.removeItem(`done-${this.groupId}`);
-        this.db.ref("votegroup/" + this.groupId).set({
+        this.db.ref(`votegroup/${this.groupId}`).set({
             timestamp: this.timestamp,
             status,
             totalIn: 0
         });
-
         return this.groupId;
     }
 
@@ -37,8 +37,10 @@ export class VotingService {
             const db_id = `votegroup/${this.groupId}`;
             this.db.ref(db_id).once("value", (snapshot) => {
                 const option = snapshot.val();
+                let totalIn = option.totalIn ?? 0;
+                console.log(totalIn);
                 this.db.ref(db_id).update({
-                    totalIn: option.totalIn += 1
+                    totalIn: totalIn += 1
                 });
             });
         }
@@ -46,10 +48,10 @@ export class VotingService {
 
     addOption(option) {
         const ts = Date.now();
-        this.db.ref("votegroup/" + this.groupId).update({
+        /*this.db.ref("votegroup/" + this.groupId).update({
             totalIn: 0,
-        });
-        this.db.ref("votegroup/" + this.groupId + "/options/" + ts).set({
+        });*/
+        this.db.ref("votegroup/" + this.groupId + "/options/" + ts).update({
             option,
             id: ts,
             votes: 0,

@@ -1,1 +1,1 @@
-.bottom-bar{position:fixed;display:flex;bottom:0;width:100%;left:0}.bottom-bar button{width:100%}
+.bottom-bar{position:fixed;display:flex;bottom:0;width:100%;left:0;right:0;margin:0 auto;max-width:32rem}.bottom-bar button{width:100%}

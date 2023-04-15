@@ -14,6 +14,7 @@ export class VoteNow {
     this.optionsContainer = document.getElementById('options');
     this.shareButton = document.getElementById('share-button');
     this.doneAction = document.getElementById('done-action');
+    this.doneMessage = document.getElementById('done-message');
     this.addedAction = document.getElementById('added-action');
     this.totalIn = document.getElementById('total-in');
 
@@ -42,8 +43,6 @@ export class VoteNow {
       this.votingService.addOption(input.value);
       input.value = '';
       this.addedAction.classList.remove('hidden');
-      this.doneAction.classList.add('hidden');
-
     });
 
     this.closeGroupButton.addEventListener('click', (e) => {
@@ -58,11 +57,11 @@ export class VoteNow {
     this.doneAction.addEventListener('click', (e) => {
       self.doneAction.classList.add('hidden');
       self.votingService.incrementTotalIn();
-      document.getElementById('done-message').classList.remove('hidden');
+      this.doneMessage.classList.remove('hidden');
     });
 
     this.addedAction.querySelector('a').addEventListener('click', (e) => {
-      this.shareAdded();
+      this.share('I added options to our voty!');
     });
 
 
@@ -131,8 +130,8 @@ export class VoteNow {
     const optionId = event.target.id;
 
     if (checked) {
-      this.addedAction.classList.add('hidden');
       this.doneAction.classList.remove('hidden');
+      this.doneMessage.classList.add('hidden');
       this.votingService.checkOption(optionId);
     } else {
       this.votingService.uncheckOption(optionId);
@@ -156,32 +155,20 @@ export class VoteNow {
     document.getElementById('result').appendChild(h2);
   }
 
-  share() {
+  share(message = 'Give your input!') {
     if (navigator.share) {
       navigator.share({
-        title: 'Add your vote!',
+        title: 'Voty',
+        text: message,
         url: window.location.href
       }).then(() => {
         console.log('Thanks for sharing!');
       })
         .catch(console.error);
     } else {
-      // fallback
-    }
-  }
-
-  shareAdded() {
-    if (navigator.share) {
-      navigator.share({
-        title: 'New Options',
-        text: 'I added options to our Voty!',
-        url: window.location.href
-      }).then(() => {
-        console.log('Thanks for sharing!');
-      })
-        .catch(console.error);
-    } else {
-      // fallback
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('The link to this Voty has been copied to your clipboard. To share, simply send it to your group.')
+      });
     }
   }
 
