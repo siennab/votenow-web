@@ -25,9 +25,17 @@ export class VotingService {
 
 
     closeVote() {
-        const status = 'closing';
-        this.db.ref("votegroup/" + this.groupId).update({
-            status,
+
+        this.db.ref(`votegroup/${this.groupId}`).once("value", (snapshot) => {
+            const group = snapshot.val();
+            const shuffled = this._shuffle(Object.values(group.options));
+            const winner = shuffled
+            .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
+    
+            this.db.ref("votegroup/" + this.groupId).update({
+                status: 'closed',
+                winner: winner,
+            });
         });
     }
 
@@ -114,21 +122,6 @@ export class VotingService {
     subscribeToStatusChanges(callback) {
         this.db.ref(`votegroup/${this.groupId}`).on('value', (snapshot) => {
             const group = snapshot.val();
-            
-            if(group && group.status && group.status == 'closing') {
-                
-                if(group.winner) {
-                    return;
-                }
-                const shuffled = this._shuffle(Object.values(group.options));
-                const winner = shuffled
-                .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));
-
-                this.db.ref("votegroup/" + this.groupId).update({
-                    status: 'closed',
-                    winner: winner,
-                });
-            }
             callback(group);
 
         });
