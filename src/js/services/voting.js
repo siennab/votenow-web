@@ -116,6 +116,10 @@ export class VotingService {
             const group = snapshot.val();
             
             if(group && group.status && group.status == 'closing') {
+                
+                if(group.winner) {
+                    return;
+                }
                 const shuffled = this._shuffle(Object.values(group.options));
                 const winner = shuffled
                 .reduce((prev, curr) => (prev.votes > curr.votes ? prev : curr));

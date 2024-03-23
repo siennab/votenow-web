@@ -45,9 +45,11 @@ export class VoteNow {
       input.value = '';
 
       // auto check if you're the one who added 
-      this.votingService.checkOption(option.id);
-      document.getElementById(option.id).checked = true;
+      const checkbox = document.getElementById(option.id);
+      checkbox.click();
     }); 
+
+    this.closeGroupButton.innerText = 'Choose randomly'
 
     this.closeGroupButton.addEventListener('click', (e) => {
       this.votingService.closeVote();
@@ -99,6 +101,10 @@ export class VoteNow {
         this.votingService.subscribeToStatusChanges((group) => {
           const hasVotes = Object.values(group?.options ?? []).some(option => option.votes > 0);
           this.totalIn.innerText = group?.totalIn || 0;
+
+          if(group?.totalIn > 1) {
+            this.closeGroupButton.innerText = 'Everyone\'s in'
+          }
           
           if(hasVotes) {
             this.closeGroupButton.removeAttribute('disabled');
