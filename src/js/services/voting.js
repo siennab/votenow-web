@@ -3,12 +3,12 @@ export class VotingService {
 
     constructor() {
         this.timestamp = Date.now();
-        console.log(MediaDeviceInfo.deviceId);
         this.groupId = this.timestamp;
         firebase.initializeApp(firebaseConfig);
         this.db = firebase.database();
         this.affirmitiveVotes = [];
         this.localStorageKey = 'affirmitive';
+        this.voted = false;
 
     }
 
@@ -38,7 +38,6 @@ export class VotingService {
             this.db.ref(db_id).once("value", (snapshot) => {
                 const option = snapshot.val();
                 let totalIn = option.totalIn ?? 0;
-                console.log(totalIn);
                 this.db.ref(db_id).update({
                     totalIn: totalIn += 1
                 });
@@ -56,6 +55,12 @@ export class VotingService {
             id: ts,
             votes: 0,
         });
+
+        return {
+            option,
+            id: ts,
+            votes: 0,
+        }
     }
 
     checkOption(optionId) {
@@ -70,6 +75,11 @@ export class VotingService {
                 votes: option.votes += 1
             });
         });
+
+        if(!this.voted) {
+            this.incrementTotalIn();
+            this.voted = true;
+        }
     }
 
     uncheckOption(optionId) {

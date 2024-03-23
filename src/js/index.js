@@ -15,9 +15,9 @@ export class VoteNow {
     this.shareButton = document.getElementById('share-button');
     this.shareButtonResults = document.getElementById('share-button-results');
 
-    this.doneAction = document.getElementById('done-action');
+   // this.doneAction = document.getElementById('done-action');
     this.doneMessage = document.getElementById('done-message');
-    this.addedAction = document.getElementById('added-action');
+  //  this.addedAction = document.getElementById('added-action');
     this.totalIn = document.getElementById('total-in');
 
     this.overlay = document.getElementById('overlay');
@@ -41,10 +41,13 @@ export class VoteNow {
     this.addOptionForm.onsubmit = ((e) => {
       e.preventDefault();
       const input = document.getElementById('option');
-      this.votingService.addOption(input.value);
+      var option = this.votingService.addOption(input.value);
       input.value = '';
-      this.addedAction.classList.remove('hidden');
-    });
+
+      // auto check if you're the one who added 
+      this.votingService.checkOption(option.id);
+      document.getElementById(option.id).checked = true;
+    }); 
 
     this.closeGroupButton.addEventListener('click', (e) => {
       this.votingService.closeVote();
@@ -58,15 +61,17 @@ export class VoteNow {
       this.share("The winner is...");
     });
 
-    this.addedAction.querySelector('a').addEventListener('click', (e) => {
-      this.share('I added options to our voty!');
-    });
+    this.doneMessage.classList.remove('hidden');
 
-    this.doneAction.addEventListener('click', (e) => {
+   /* this.addedAction.querySelector('a').addEventListener('click', (e) => {
+      this.share('I added options to our voty!');
+    });*/
+
+   /* this.doneAction.addEventListener('click', (e) => {
       this.doneAction.classList.add('hidden');
       this.votingService.incrementTotalIn();
-      this.doneMessage.classList.remove('hidden');
-    });
+      
+    }); */
 
   }
 
@@ -93,7 +98,7 @@ export class VoteNow {
         });
         this.votingService.subscribeToStatusChanges((group) => {
           const hasVotes = Object.values(group?.options ?? []).some(option => option.votes > 0);
-          this.totalIn.innerText = group?.totalIn;
+          this.totalIn.innerText = group?.totalIn || 0;
           
           if(hasVotes) {
             this.closeGroupButton.removeAttribute('disabled');
@@ -129,6 +134,8 @@ export class VoteNow {
     div.appendChild(optionInput);
     div.appendChild(label);
 
+
+
     return div;
   }
 
@@ -137,8 +144,8 @@ export class VoteNow {
     const optionId = event.target.id;
 
     if (checked) {
-      this.doneAction.classList.remove('hidden');
-      this.doneMessage.classList.add('hidden');
+     // this.doneAction.classList.remove('hidden');
+     // this.doneMessage.classList.add('hidden');
       this.votingService.checkOption(optionId);
     } else {
       this.votingService.uncheckOption(optionId);
