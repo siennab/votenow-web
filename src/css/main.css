@@ -68,8 +68,14 @@ input[type=checkbox]:checked + label {
 }
 
 input[type=checkbox]:checked + label:after {
-  content: '\2713';
+  content: ' ';
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../img/icons/check.svg");
   position: absolute;
+  padding: 0.5rem;
+  top: 1.25rem;
   right: 1rem;
 }
 
@@ -223,6 +229,10 @@ form input[type=submit] {
 
 .right {
   text-align: right;
+}
+
+.accent-background {
+  animation: changeBackground 3s ease infinite;
 }
 
 .accent-box {

@@ -14,6 +14,7 @@ export class VoteNow {
     this.optionsContainer = document.getElementById('options');
     this.shareButton = document.getElementById('share-button');
     this.shareButtonResults = document.getElementById('share-button-results');
+    this.voteAgainButton = document.getElementById('vote-again-button');
 
    // this.doneAction = document.getElementById('done-action');
     this.doneMessage = document.getElementById('done-message');
@@ -52,7 +53,9 @@ export class VoteNow {
     this.closeGroupButton.innerText = 'Choose randomly'
 
     this.closeGroupButton.addEventListener('click', (e) => {
-      this.votingService.closeVote();
+      if (confirm('Are you sure you\'re ready to close the vote?')) {
+        this.votingService.closeVote();
+      }
     });
 
     this.shareButton.addEventListener('click', (e) => {
@@ -65,6 +68,10 @@ export class VoteNow {
 
     this.doneMessage.classList.remove('hidden');
 
+
+    this.voteAgainButton.addEventListener('click', (e) => {
+      this.voteAgain();
+    });
    /* this.addedAction.querySelector('a').addEventListener('click', (e) => {
       this.share('I added options to our voty!');
     });*/
@@ -82,8 +89,9 @@ export class VoteNow {
       const urlParams = new URLSearchParams(window.location.search);
       let groupId = urlParams.get('groupId');
 
-      if (groupId) {
 
+      if (groupId) {
+        groupId = groupId.replace(/[^\w]/g, '');
         if( localStorage.getItem(`done-${groupId}`) ) {
           this.doneMessage.classList.remove('hidden');
         }
@@ -130,6 +138,7 @@ export class VoteNow {
     optionInput.type = 'checkbox';
     optionInput.checked = votes.includes(options.id.toString());
     optionInput.id = options.id;
+    optionInput.name = 'voting-option';
     optionInput.classList.add('hide');
     optionInput.onchange = (e) => { this.handleVote(e) };
 
@@ -167,7 +176,13 @@ export class VoteNow {
     h2.classList.add('slide-up');
     h2.innerText = winner.option;
 
-    document.getElementById('result-accent').appendChild(h2);
+    document.getElementById('result-accent-result').innerHTML = h2.outerHTML;
+  }
+
+  voteAgain() {
+    this.step3.classList.add('hidden');
+    this.step2.classList.remove('hidden');
+    this.votingService.reOpenVote();
   }
 
   share(message = 'Give your input!') {

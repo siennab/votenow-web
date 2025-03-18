@@ -39,6 +39,13 @@ export class VotingService {
         });
     }
 
+    reOpenVote() {
+        this.db.ref("votegroup/" + this.groupId).update({
+            status: 'active',
+            winner: null,
+        });
+    }
+
     incrementTotalIn() {
         if(!localStorage.getItem(`done-${this.groupId}`)) {
             localStorage.setItem(`done-${this.groupId}`, true);

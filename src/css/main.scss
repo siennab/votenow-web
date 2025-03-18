@@ -60,13 +60,13 @@ h1,
 h2 {
     font-family: 'Hip Pocket', sans-serif;
     color: white;
-    font-size: 3rem;
+    font-size: 5rem;
     margin: 0;
 
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 .hidden {
@@ -140,7 +140,21 @@ form {
     text-align: right;
 }
 
+.accent-background {
+  //  animation: changeBackground 3s ease infinite;
+}
+
+#create-group-button,
+#result {
+    position: absolute;
+    top: 25%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
 .accent-box {
+
     text-align: center;
     //position: fixed;
     margin: 1rem auto 3rem auto;
@@ -151,6 +165,8 @@ form {
     //transform: translate(-50%, -50%);
     animation: changeBackground 3s ease infinite;
     max-width: 18rem;
+    position: relative;
+   
 
     &--block {
         width: auto;

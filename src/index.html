@@ -17,7 +17,7 @@
 	<link href="https://fonts.cdnfonts.com/css/hip-pocket" rel="stylesheet">
                 
 
-<body>
+<body class="accent-background">
 	<div class="overlay" id="overlay">
 		<h1>Voty</h1>
 	</div>
@@ -52,7 +52,7 @@
 				</button> -->
 
 				<div id="done-message" class="message right hidden spacer">
-					Total people in: <span id="total-in"></span>
+					Total voters so far: <span id="total-in"></span>
 				</div>
 
 		
@@ -73,11 +73,14 @@
 		<section class="hidden" data-step-3 id="result">
 			<div class="accent-box" id="result-accent">
 				<div class="message">The winner is...</div>
+				<div id="result-accent-result"></div>
 			</div>
 
 			<div class="bottom-bar">
+				<button class="inline transparent" id="vote-again-button">Reopen Vote</button>
+
 				<button id="share-button-results"> <img width="18" alt="share" src="img/icons/arrow-up-from-bracket-solid.svg" /></button>
-		
+
 			</div>
 		</section>
 	</div>
