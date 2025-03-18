@@ -111,7 +111,7 @@ export class VoteNow {
           this.totalIn.innerText = group?.totalIn || 0;
 
           if(group?.totalIn > 1) {
-            this.closeGroupButton.innerText = 'Everyone\'s in'
+            this.closeGroupButton.innerText = 'Close Vote'
           }
           
           if(hasVotes) {
