@@ -1,5 +1,5 @@
 import { VotingService } from './services/voting';
-import '../css/main.scss';
+import '../css/main.css';
 export class VoteNow {
 
   constructor() {

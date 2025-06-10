@@ -8,6 +8,8 @@
     "build": "webpack --mode production"
   },
   "devDependencies": {
+    "@types/react": "^19.1.7",
+    "@types/react-dom": "^19.1.6",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
@@ -29,6 +31,11 @@
   },
   "homepage": "https://github.com/siennab/votenow-web#readme",
   "dependencies": {
-    "npm": "^9.6.3"
+    "@reduxjs/toolkit": "^2.8.2",
+    "npm": "^9.6.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1"
   }
 }
